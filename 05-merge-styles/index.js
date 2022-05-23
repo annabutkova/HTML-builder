@@ -6,6 +6,14 @@ const dist = path.join(__dirname, '/project-dist/bundle.css');
 
 const doBundleCSS = async (folder) => {
   const files = await fs.promises.readdir(folder);
+  fs.stat(dist, function (err, stats) {
+    if (stats) {
+      fs.unlink(dist, err => {
+        if (err) throw err;
+      });
+    } 
+  });
+
   try {
     for (const file of files)
       fs.stat(folder + file, (err, stats) => {
@@ -16,7 +24,7 @@ const doBundleCSS = async (folder) => {
               if (error) throw error;
             });
           });
-      
+
         }
       });
   } catch (err) {
