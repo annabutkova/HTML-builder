@@ -1,12 +1,19 @@
-Пусть в папке проекта определен некоторый файл hello.txt. Скопируем его содержимое в новый файл some.txt:
+const fs = require('fs');
+const path = require('node:path');
+const absolutePath = path.join(__dirname, '/files/');
 
-const fs = require('fs')
 
-let readableStream = fs.createReadStream(
-  'hello.txt',
-  'utf8'
-)
+const copyDir = async (folder) => {
+  fs.promises.mkdir(`${__dirname}/files-copy`, { recursive: true });
+  const files = await fs.promises.readdir(folder);
+  try {
+    console.log(files);
+    for (const file of files) {
+      fs.promises.copyFile(folder + file, `${__dirname}/files-copy/${file}`);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-let writeableStream = fs.createWriteStream('some.txt')
-
-readableStream.pipe(writeableStream)
+copyDir(absolutePath);
