@@ -7,7 +7,6 @@ const copyDir = async (folder) => {
   fs.promises.mkdir(`${__dirname}/files-copy`, { recursive: true });
   const files = await fs.promises.readdir(folder);
   try {
-    console.log(files);
     for (const file of files) {
       fs.promises.copyFile(folder + file, `${__dirname}/files-copy/${file}`);
     }
