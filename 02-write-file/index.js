@@ -12,7 +12,13 @@ const rl = readline.createInterface({
 function addText() {
   console.log('Привет!');
   try {
-    console.log('Введите текст. Для выхода введите команду exit\n');
+    
+    fs.writeFile(absolutePath, '', { flag: 'a+' }, function (error) {
+      if (error) throw error;
+      else {
+        console.log('Введите текст. Для выхода введите команду exit\n');
+      }
+    });
     rl.on('line', line => {
       if (line == 'exit' || line == 'EXIT' || line == 'Exit') {
         rl.close();
