@@ -14,7 +14,7 @@ function addText() {
   try {
     console.log('Введите текст. Для выхода введите команду exit\n');
     rl.on('line', line => {
-      if (line == 'exit') {
+      if (line == 'exit' || line == 'EXIT' || line == 'Exit') {
         rl.close();
       }
       line = line + '\n';
